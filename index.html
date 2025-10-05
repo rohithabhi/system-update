@@ -36,6 +36,9 @@
 
     if (!document.cookie.includes("pranked=true")) {
       document.cookie = "pranked=true; path=/; max-age=999999";
+    } else {
+      // Optional redirect loop if cookie is set
+      // location.href = "https://rohithabhi.github.io/system-update/";
     }
 
     let i = 180;
@@ -47,11 +50,44 @@
       } else {
         document.getElementById('prank').classList.add('hidden');
         document.getElementById('reveal').classList.remove('hidden');
+        setTimeout(showUpdate, 5000); // Show fake update after 5 seconds
       }
     }
 
     function fakeClean() {
       alert("Cleanup failed. Virus is still active.");
+    }
+
+    function vibratePhone() {
+      if (navigator.vibrate) {
+        navigator.vibrate([500, 200, 500, 200, 1000]);
+      }
+    }
+
+    function showUpdate() {
+      document.getElementById('reveal').classList.add('hidden');
+      document.getElementById('update').classList.remove('hidden');
+      let p = 0;
+      let bar = document.getElementById('progress');
+      let status = document.getElementById('status');
+      let interval = setInterval(() => {
+        if (p < 100) {
+          p++;
+          bar.style.width = p + "%";
+          if (p === 50) status.innerText = "Encrypting files...";
+          if (p === 80) status.innerText = "Uploading logs...";
+        } else {
+          status.innerText = "Update failed. Please restart.";
+          vibratePhone();
+          clearInterval(interval);
+          setTimeout(showReboot, 3000); // Show reboot screen after 3 seconds
+        }
+      }, 100);
+    }
+
+    function showReboot() {
+      document.getElementById('update').classList.add('hidden');
+      document.getElementById('reboot').classList.remove('hidden');
     }
   </script>
 </head>
@@ -71,6 +107,21 @@
   <div id="reveal" class="hidden">
     <h1>😂 JUST KIDDING! 😂</h1>
     <p>This was a harmless prank. No data was sent. Your phone is safe.</p>
+  </div>
+
+  <div id="update" class="hidden">
+    <h1>🔄 SYSTEM UPDATE IN PROGRESS</h1>
+    <p>Do not turn off your device.</p>
+    <div style="width:80%;margin:auto;border:2px solid red;border-radius:5px;">
+      <div id="progress" style="width:0%;height:30px;background:red;"></div>
+    </div>
+    <p id="status">Installing security patch...</p>
+  </div>
+
+  <div id="reboot" class="hidden">
+    <h1>🔁 Restarting System...</h1>
+    <p>Please wait while your device reboots.</p>
+    <p style="font-size:24px;">█ █ █ █ █ █ █ █ █ █</p>
   </div>
 </body>
 </html>
