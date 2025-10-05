@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Virus Alert</title>
+  <style>
+    body {
+      background: black;
+      color: red;
+      font-family: monospace;
+      text-align: center;
+      padding-top: 50px;
+    }
+    h1 {
+      font-size: 3em;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    .hidden { display: none; }
+  </style>
+  <script>
+    if (!document.cookie.includes("pranked=true")) {
+      document.cookie = "pranked=true; path=/; max-age=999999";
+    }
+    let i = 180;
+    function count() {
+      if (i > 0) {
+        document.getElementById('count').innerText = i;
+        i--;
+        setTimeout(count, 1000);
+      } else {
+        document.getElementById('prank').classList.add('hidden');
+        document.getElementById('reveal').classList.remove('hidden');
+      }
+    }
+  </script>
+</head>
+<body onload="count()">
+  <audio autoplay loop>
+    <source src="https://www.soundjay.com/button/sounds/button-16.mp3" type="audio/mpeg">
+  </audio>
+  <div id="prank">
+    <h1>⚠️ VIRUS DETECTED ⚠️</h1>
+    <p>Your phone is infected!</p>
+    <p>Sending data to unknown server...</p>
+    <h2>Self-destruct in <span id="count">180</span> seconds</h2>
+  </div>
+  <div id="reveal" class="hidden">
+    <h1>😂 JUST KIDDING! 😂</h1>
+    <p>This was a harmless prank. No data was sent. Your phone is safe.</p>
+  </div>
+</body>
+</html>
