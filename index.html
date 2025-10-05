@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Virus Alert</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       background: black;
@@ -20,11 +21,23 @@
       100% { opacity: 1; }
     }
     .hidden { display: none; }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
   </style>
   <script>
+    alert("⚠️ VIRUS DETECTED!\nYour phone is infected.\nSending data to unknown server...");
+
     if (!document.cookie.includes("pranked=true")) {
       document.cookie = "pranked=true; path=/; max-age=999999";
     }
+
     let i = 180;
     function count() {
       if (i > 0) {
@@ -36,18 +49,25 @@
         document.getElementById('reveal').classList.remove('hidden');
       }
     }
+
+    function fakeClean() {
+      alert("Cleanup failed. Virus is still active.");
+    }
   </script>
 </head>
 <body onload="count()">
   <audio autoplay loop>
     <source src="https://www.soundjay.com/button/sounds/button-16.mp3" type="audio/mpeg">
   </audio>
+
   <div id="prank">
     <h1>⚠️ VIRUS DETECTED ⚠️</h1>
     <p>Your phone is infected!</p>
     <p>Sending data to unknown server...</p>
     <h2>Self-destruct in <span id="count">180</span> seconds</h2>
+    <button onclick="fakeClean()">Clean My Phone</button>
   </div>
+
   <div id="reveal" class="hidden">
     <h1>😂 JUST KIDDING! 😂</h1>
     <p>This was a harmless prank. No data was sent. Your phone is safe.</p>
